@@ -37,6 +37,16 @@ public:
         nums.insert( nums.end(), left.begin(), left.end() );
         nums.insert( nums.end(), right.begin(), right.end() );
     }
+    static bool containsDuplicate(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int i = 0;
+        while(i + 1 < nums.size()){
+            if(!(nums[i+1] - nums[i]))
+                return true;
+            ++i;
+        }
+        return false;
+    }
 };
 
 #endif //LEETCODE_SOLUTION_H
