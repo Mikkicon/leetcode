@@ -47,6 +47,36 @@ public:
         }
         return false;
     }
+
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode() : val(0), left(nullptr), right(nullptr) {}
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    };
+
+    static vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> result = {};
+        if(!root)
+            return result;
+        dfs_levelOrderBottom(root, result, 0);
+        reverse(result.begin(), result.end());
+        return result;
+    }
+    static void dfs_levelOrderBottom(TreeNode* root, vector<vector<int>>& result, int level) {
+        if(result.size() <= level){
+            vector<int> local = {root->val};
+            result.push_back(local);
+        }else{
+            result[level].push_back(root->val);
+        }
+        if(root->left)
+            dfs_levelOrderBottom(root->left, result, level+1);
+        if(root->right)
+            dfs_levelOrderBottom(root->right, result, level+1);
+    }
 };
 
 #endif //LEETCODE_SOLUTION_H
