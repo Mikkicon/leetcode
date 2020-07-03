@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class Solution {
@@ -76,6 +77,51 @@ public:
             dfs_levelOrderBottom(root->left, result, level+1);
         if(root->right)
             dfs_levelOrderBottom(root->right, result, level+1);
+    }
+    static vector<int> prisonAfterNDays(vector<int>& cells, int N) {
+        const int length = cells.size();
+        if(!length || !N)
+            return cells;
+
+        // Vector to number
+        unsigned int number = 0;
+        reverse(cells.begin(), cells.end());
+        for(int i = 0; i < length; ++i){
+            number += (cells[i] * pow(2, i));
+        }
+//        cout<<"Number: "<<number<<endl;
+        reverse(cells.begin(), cells.end());
+
+
+        // Shift left + shift right = neighbors on the place of subject
+        int a = (number << 1);
+        int b = (number >> 1);
+        // XOR marks as "1" bits that need to be "0"
+        // so we will work with bitwise inverse number
+        int c = a ^ b;
+        // Adding leftmost and rightmost bits
+        int num = c|129;
+        for(int i = 0; i < N-1; ++i){
+            a = (num << 1)%128;
+            b = (num >> 1)%128;
+            c = a ^ b;
+            num = c|129;
+//            cout<<"Answer: "<<num<<endl;
+        }
+
+        // Now we have a result but bits are inverted
+        vector<int> result = {};
+        int bit = 0;
+        for(int i = 0; i < 8; ++i) {
+            // Get leftmost bit and add it to vector
+            bit = num%2;
+            result.push_back(!bit);
+            // Get shift a number right for the next bit
+            num = num>>1;
+        }
+        reverse(result.begin(), result.end());
+//        cout<<"Answer: "<<num<<endl;
+        return result;
     }
 };
 
