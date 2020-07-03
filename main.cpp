@@ -128,7 +128,7 @@ int main() {
 //    const unsigned char * data = (const unsigned char *)"hello";
 //
 //    unsigned int k = *(unsigned int*)data;
-    vector<int> vector0 = {0,0,0,1,1,1,0,1};
+    vector<int> vector0 = {0,1,0,1,1,0,0,1};
 //    vector<int> vector1 = {0,0,1,1,1,2};
 //    vector<int> vector2 = {1,1,1,2,2,3,3,3};
 //    int res = Solution::removeDuplicates(vector1);
@@ -136,6 +136,6 @@ int main() {
 //    for(int num : vector2)
 //        cout<<num<<" ";
 //    cout<<endl;
-    Solution::prisonAfterNDays(vector0,3);
+    Solution::prisonAfterNDays(vector0,7);
     return 0;
 }

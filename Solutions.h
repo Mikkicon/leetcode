@@ -101,12 +101,26 @@ public:
         int c = a ^ b;
         // Adding leftmost and rightmost bits
         int num = c|129;
-        for(int i = 0; i < N-1; ++i){
-            a = (num << 1)%128;
-            b = (num >> 1)%128;
-            c = a ^ b;
-            num = c|129;
+        
+//        After some research I found out that
+//        the values change in cycles of 14
+//        for(int i = 0; i < N-1; ++i){
+        if(!(N % 14)){
+            for(int i = 0; i < 13; ++i) {
+                a = (num << 1) % 128;
+                b = (num >> 1) % 128;
+                c = a ^ b;
+                num = c | 129;
 //            cout<<"Answer: "<<num<<endl;
+            }
+        }else{
+            for(int i = 0; i < (N % 14)-1; ++i) {
+                a = (num << 1) % 128;
+                b = (num >> 1) % 128;
+                c = a ^ b;
+                num = c | 129;
+//            cout<<"Answer: "<<num<<endl;
+            }
         }
 
         // Now we have a result but bits are inverted
