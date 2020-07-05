@@ -136,6 +136,7 @@ int main() {
 //    for(int num : vector2)
 //        cout<<num<<" ";
 //    cout<<endl;
-    Solution::prisonAfterNDays(vector0,7);
+//    Solution::prisonAfterNDays(vector0,7);
+    Solution::nthUglyNumber(6);
     return 0;
 }

@@ -101,7 +101,7 @@ public:
         int c = a ^ b;
         // Adding leftmost and rightmost bits
         int num = c|129;
-        
+
 //        After some research I found out that
 //        the values change in cycles of 14
 //        for(int i = 0; i < N-1; ++i){
@@ -136,6 +136,33 @@ public:
         reverse(result.begin(), result.end());
 //        cout<<"Answer: "<<num<<endl;
         return result;
+    }
+    static int nthUglyNumber(int n) {
+//        1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 18, 20, 24
+        int counter = 0;
+        int local_num = 0;
+        vector<int> result = {1};
+        while(result.size()<n) {
+            local_num = *(result.end()-1);
+            result.push_back(min(min(local_num*2, local_num*3), min(local_num*3, local_num*5)));
+        }
+        // result = vector<int>(result.begin(), result.begin()+n);
+        sort(result.begin(), result.end());
+//        for(int num : result)
+//            cout << num << endl;
+        int answer = *(result.end()-1);
+        return answer;
+    }
+    static int hammingDistance(int x, int y) {
+        int xorz = x^y;
+        int counter = 0;
+        while(xorz){
+            cout<<xorz<<endl;
+            if(xorz%2)
+                ++counter;
+            xorz = xorz>>1;
+        }
+        return counter;
     }
 };
 
