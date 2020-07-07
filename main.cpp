@@ -128,15 +128,19 @@ int main() {
 //    const unsigned char * data = (const unsigned char *)"hello";
 //
 //    unsigned int k = *(unsigned int*)data;
-    vector<int> vector0 = {0,1,0,1,1,0,0,1};
+//    vector<int> vector0 = {0,1,0,1,1,0,0,1};
 //    vector<int> vector1 = {0,0,1,1,1,2};
 //    vector<int> vector2 = {1,1,1,2,2,3,3,3};
+    vector<int> vector3 = {-1,0,1,2,-1,-4,5,0,-2,4};
+    vector<vector<int>> grid = {{0,1}};
 //    int res = Solution::removeDuplicates(vector1);
 //    Solution::rotate(vector2, 2);
 //    for(int num : vector2)
 //        cout<<num<<" ";
 //    cout<<endl;
 //    Solution::prisonAfterNDays(vector0,7);
-    Solution::nthUglyNumber(6);
+//    Solution::nthUglyNumber(6);
+//    Solution::threeSum(vector3);
+    Solution::islandPerimeter(grid);
     return 0;
 }

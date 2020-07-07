@@ -9,6 +9,9 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <set>
+#include <algorithm>
+
 using namespace std;
 
 class Solution {
@@ -163,6 +166,60 @@ public:
             xorz = xorz>>1;
         }
         return counter;
+    }
+    static vector<vector<int>> threeSum(vector<int>& nums) {
+//        -4 -2 -1 -1 0 0 1 2 4 5
+        vector<int> temp = {};
+        vector<vector<int>> result = {};
+        int left_idx = 0, two_sum = 0, target = 0, right_idx = nums.size()-1;
+
+        if(nums.size()<3) return result;
+
+        sort(nums.begin(),nums.end());
+
+        for(int i = 0; i < nums.size(); ++i) {
+            target = -nums[i];
+            while (left_idx < right_idx) {
+                two_sum = nums[left_idx] + nums[right_idx];
+                if (left_idx == i || two_sum < target) {
+                    ++left_idx;
+                } else if (right_idx == i || two_sum > target) {
+                    --right_idx;
+                } else {
+                    break;
+                }
+            }
+            if(left_idx != right_idx && two_sum == target){
+                temp.push_back(nums[left_idx]);
+                temp.push_back(nums[right_idx]);
+                temp.push_back(target);
+                sort(temp.begin(),temp.end());
+                if(find(result.begin(), result.end(), temp) == result.end())
+                    result.push_back(temp);
+            }
+            left_idx = 0;
+            right_idx = nums.size()-1;
+            temp = {};
+        }
+        return result;
+    }
+    static int islandPerimeter(vector<vector<int>>& grid) {
+        unsigned int perimeter = 0;
+        for(int i = 0; i < grid.size(); ++i){
+            for(int j = 0; j < grid[i].size(); ++j){
+                if(grid[i][j] == 1){
+                    if(i == 0 || grid[i-1][j] == 0)
+                        ++perimeter;
+                    if(i == grid.size()-1 || grid[i+1][j] == 0)
+                        ++perimeter;
+                    if(j == 0 || grid[i][j-1] == 0)
+                        ++perimeter;
+                    if(j == grid[i].size()-1 || grid[i][j+1] == 0)
+                        ++perimeter;
+                }
+            }
+        }
+        return perimeter;
     }
 };
 
