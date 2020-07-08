@@ -168,7 +168,7 @@ public:
         return counter;
     }
     static vector<vector<int>> threeSum(vector<int>& nums) {
-//        -4 -2 -1 -1 0 0 1 2 4 5
+//        6-4 -2 -2 -2 0 1 2 2 2 3 3 4 4 6 6
         vector<int> temp = {};
         vector<vector<int>> result = {};
         int left_idx = 0, two_sum = 0, target = 0, right_idx = nums.size()-1;
@@ -186,16 +186,19 @@ public:
                 } else if (right_idx == i || two_sum > target) {
                     --right_idx;
                 } else {
-                    break;
+                    temp.push_back(nums[left_idx]);
+                    temp.push_back(nums[right_idx]);
+                    temp.push_back(nums[i]);
+                    sort(temp.begin(),temp.end());
+                    if(find(result.begin(), result.end(), temp) == result.end())
+                        result.push_back(temp);
+                    temp = {};
+                    if(abs(nums[left_idx]) < abs(nums[right_idx])){
+                        --right_idx;
+                    }else{
+                        ++left_idx;
+                    }
                 }
-            }
-            if(left_idx != right_idx && two_sum == target){
-                temp.push_back(nums[left_idx]);
-                temp.push_back(nums[right_idx]);
-                temp.push_back(target);
-                sort(temp.begin(),temp.end());
-                if(find(result.begin(), result.end(), temp) == result.end())
-                    result.push_back(temp);
             }
             left_idx = 0;
             right_idx = nums.size()-1;
@@ -205,19 +208,33 @@ public:
     }
     static int islandPerimeter(vector<vector<int>>& grid) {
         unsigned int perimeter = 0;
-        for(int i = 0; i < grid.size(); ++i){
-            for(int j = 0; j < grid[i].size(); ++j){
-                if(grid[i][j] == 1){
-                    if(i == 0 || grid[i-1][j] == 0)
-                        ++perimeter;
-                    if(i == grid.size()-1 || grid[i+1][j] == 0)
-                        ++perimeter;
-                    if(j == 0 || grid[i][j-1] == 0)
-                        ++perimeter;
-                    if(j == grid[i].size()-1 || grid[i][j+1] == 0)
-                        ++perimeter;
-                }
+        int i = 0, j = 0;
+        while(i < grid.size()){
+            while(j < grid[i].size() && grid[i][j] == 0){
+                ++j;
             }
+            while(j < grid[i].size() && grid[i][j] == 1){
+                if(i == 0 || grid[i-1][j] == 0)
+                    ++perimeter;
+                if(i == grid.size()-1 || grid[i+1][j] == 0)
+                    ++perimeter;
+                if(j == 0 || grid[i][j-1] == 0)
+                    ++perimeter;
+                if(j == grid[i].size()-1 || grid[i][j+1] == 0)
+                    ++perimeter;
+                ++j;
+            }
+
+            ++i;
+            if(i == grid.size())
+                break;
+            while(j >= 0 && grid[i+1][j] == 0){
+                --j;
+            }
+            while(j >= 0 && grid[i][j] == 1){
+                --j;
+            }
+            ++j;
         }
         return perimeter;
     }

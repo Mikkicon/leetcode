@@ -131,8 +131,9 @@ int main() {
 //    vector<int> vector0 = {0,1,0,1,1,0,0,1};
 //    vector<int> vector1 = {0,0,1,1,1,2};
 //    vector<int> vector2 = {1,1,1,2,2,3,3,3};
-    vector<int> vector3 = {-1,0,1,2,-1,-4,5,0,-2,4};
-    vector<vector<int>> grid = {{0,1}};
+    vector<int> vector3 = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
+//    vector<vector<int>> grid = {{0,1}};
+//    vector<vector<int>> grid0 = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
 //    int res = Solution::removeDuplicates(vector1);
 //    Solution::rotate(vector2, 2);
 //    for(int num : vector2)
@@ -140,7 +141,7 @@ int main() {
 //    cout<<endl;
 //    Solution::prisonAfterNDays(vector0,7);
 //    Solution::nthUglyNumber(6);
-//    Solution::threeSum(vector3);
-    Solution::islandPerimeter(grid);
+    Solution::threeSum(vector3);
+//    Solution::islandPerimeter(grid0);
     return 0;
 }
