@@ -11,12 +11,28 @@
 #include <cmath>
 #include <set>
 #include <algorithm>
-
+#include <map>
 using namespace std;
 
 class Solution {
 public:
-
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode() : val(0), left(nullptr), right(nullptr) {}
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    };
+    class Node {
+    public:
+        int val;
+        Node* prev;
+        Node* next;
+        Node* child;
+        Node():val(0),prev(nullptr), next(nullptr),child(nullptr){};
+        Node(int val):val(val),prev(nullptr), next(nullptr),child(nullptr){};
+    };
     static int removeDuplicates(vector<int>& nums) {
         auto it = nums.begin();
         vector<int>::iterator aux;
@@ -52,14 +68,7 @@ public:
         return false;
     }
 
-    struct TreeNode {
-        int val;
-        TreeNode *left;
-        TreeNode *right;
-        TreeNode() : val(0), left(nullptr), right(nullptr) {}
-        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-    };
+
 
     static vector<vector<int>> levelOrderBottom(TreeNode* root) {
         vector<vector<int>> result = {};
@@ -237,6 +246,83 @@ public:
             ++j;
         }
         return perimeter;
+    }
+    static int widthOfBinaryTree(TreeNode* root) {
+        map<int, vector<int>> m;
+        int max_width = 0, max_width_x = 0, current_width = 0;
+        Solution::get_coords(root, 0, 0, 0, m);
+        for(auto const& coords : m){
+            cout<<"l: "<<coords.second[0]<<"; r: "<<coords.second[1]<<endl;
+            current_width = abs(coords.second[0]) + abs(coords.second[1]);
+            if(max_width < current_width){
+                max_width = current_width;
+                max_width_x = coords.first;
+            }
+        }
+        return pow(2, max_width_x);
+    }
+
+    static void get_coords(TreeNode* node, int offset, int depth, float comparator, map<int, vector<int>> &dict){
+        if(node){
+            if(!dict[depth].size())
+                dict[depth] = {offset, offset};
+            else if(offset < dict[depth][0])
+                dict[depth][0] = offset;
+            else if(offset > dict[depth][1])
+                dict[depth][1] = offset;
+            ++depth;
+            // if(comparator > 0){
+            get_coords(node->left, offset + (comparator - 0.5), depth,-0.5, dict);
+            get_coords(node->right, offset + (comparator - 0.5), depth, 1.5 , dict);
+            // }
+            // else if(comparator > 0){
+            //     get_coords(node->left, offset, depth,-1, dict);
+            //     get_coords(node->right, offset + 1, depth,1 , dict);
+            // }else{
+            //     get_coords(node->left, offset - 1, depth,-1, dict);
+            //     get_coords(node->right, offset , depth,1, dict);
+            // }
+
+        }
+    }
+    static Node* flatten(Node* head) {
+        Solution::flatten_dfs(head, nullptr);
+        return head;
+    }
+    static void flatten_dfs(Node* node, Node* parent){
+        // Sink while there are children
+        if(node->child)
+            flatten_dfs(node->child, node);
+
+        // Child that doesn't have a child (lowest)
+        Node* temp = new Node();
+        if(parent){
+            // Stash pointer to parents' next
+            temp->next = parent->next;
+
+            // Child becomes next
+            parent->next = node;
+            parent->child = nullptr;
+            // Childs' previous is parent
+            node->prev = parent;
+        }
+        // Seaking final node in the row
+        while(node->next){
+            node = node->next;
+            // Sink while there are children
+            if(node->child)
+                flatten_dfs(node->child, node);
+        }
+        // If parent didn't have next -> skip
+        if(parent) {
+            // Assign stashed parents' next to current next
+            node->next = temp->next;
+            if(temp->next){
+                // Assign "prev" of stashed parents' next to current
+                temp->next->prev = node;
+            }
+        }
+        delete temp;
     }
 };
 
