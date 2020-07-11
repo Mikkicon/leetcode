@@ -324,6 +324,41 @@ public:
         }
         delete temp;
     }
+    static vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result = {};
+        // curr vector([1], etc) on lvl, available nums
+        vector<int> temp({}), scope(nums);
+        // Begin with all the nums in scope,
+        // and current = []
+        decomposition(temp, scope, result);
+        return result;
+    }
+    static void decomposition(vector<int> current, vector<int> scope, vector<vector<int>>& result){
+        // If we don't have available nums to append
+        // -> add current to result and exit recursive call
+        if(scope.empty()){
+            return;
+        }
+        vector<int> temp(current);
+        vector<int> new_scope(scope);
+        vector<int>::iterator it = new_scope.begin();
+        // Append to current each available number
+        // from scope
+        for(int num : scope){
+            // new current = current + num
+            temp.push_back(num);
+            // remove used num from scope
+            new_scope.erase(remove(new_scope.begin(), new_scope.end(), *it), new_scope.end());
+//            // keeping iterator aligned with num
+//            ++it;
+            // call recursively with current + num,
+            // shrank scope and mutual result
+            decomposition(temp, new_scope, result);
+            result.push_back(temp);
+            // remove num to free space for the next one
+            temp.pop_back();
+        }
+    }
 };
 
 #endif //LEETCODE_SOLUTION_H
