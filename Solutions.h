@@ -359,6 +359,27 @@ public:
             temp.pop_back();
         }
     }
+    static uint32_t reverseBits(uint32_t n) {
+//         00000010100101000001111010011100
+//                        \/
+//         00111001011110000010100101000000
+
+        uint32_t result = 0;
+        uint32_t cmpr = n;
+        int temp = 0;
+
+        for(int i = 0; i < 32; ++i){
+            temp = cmpr % 2;
+            cout<<temp<<' ';
+            cmpr = cmpr>>1;
+            if(temp)
+                ++result;
+            result = result<<1;
+        }
+        result = result>>1;
+        result = n % 2 ? result | 2147483648 : result;
+        return result;
+    }
 };
 
 #endif //LEETCODE_SOLUTION_H
