@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Solutions.h"
-//#include "Interviews.h"
+#include "Interviews.h"
 #include <vector>
 #include <sstream>
 #include <fstream>
@@ -59,7 +59,7 @@ int main() {
 //    Solution::islandPerimeter(grid0);
 //    cout<<two->val;
 //    Solution::subsets(vector5);
-    Solution::reverseBits(123);
-//    Interviews::code_n_care();
+//    Solution::reverseBits(123);
+    Interviews::code_n_care();
     return 0;
 }
