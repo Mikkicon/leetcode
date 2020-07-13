@@ -9,39 +9,33 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <string>
+#include <vector>
+
 class Interviews{
 public:
     static bool is_printable(const std::string& input){
-        std::unordered_map<char, int> dict{};
-        std::unordered_set<char> excluded{}, twos_indexes{};
-        std::unordered_map<char, int>::iterator dt_iter;
-        std::unordered_set<char>::iterator ex_iter;
-        // bool result = false;
+        int count;
         for (char symbol : input) {
-            ex_iter = excluded.find(symbol);
-            if (ex_iter == excluded.end()) {
-                ++dict[symbol];
-                if (dict[symbol] > 2) {
-                    excluded.insert(symbol);
-                    twos_indexes.erase(symbol);
-                } else if (dict[symbol] == 2)
-                    twos_indexes.insert(symbol);
-            }
+            count = std::count(input.begin(), input.end(), symbol);
+            if(count == 2) return true;
         }
-        return !twos_indexes.empty();
+        return false;
     }
 
     static void code_n_care(){
         std::string input;
+        std::vector<std::string> lines;
         bool should_print = false;
-        std::cout<<"\nPlease input a string...\n";
+        std::cout<<"\nPlease input strings...\n";
         getline(std::cin,input);
         while (!input.empty()) {
-            should_print = is_printable(input);
-            if (should_print)
-                std::cout << input << std::endl;
-            std::cout<<"Please input a string...\n";
+            lines.push_back(input);
             getline(std::cin,input);
+        }
+        for(const std::string& line : lines){
+            should_print = is_printable(line);
+            if (should_print)
+                std::cout << line << std::endl;
         }
     }
 };
