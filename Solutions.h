@@ -380,6 +380,34 @@ public:
         result = n % 2 ? result | 2147483648 : result;
         return result;
     }
+    static double angleClock(int hour, int minutes) {
+//         12:30 ==> sec 0: sec 6 (360 / 12 = 30*)
+        double hour_sector =((double) minutes / 60) + hour % 12;
+//        cout<<"hour_sector: "<<hour_sector<<endl;
+        double min_sector = ((double)minutes / 5);
+        cout<<"min_sector: "<<min_sector<<endl;
+        double angle = 30 * abs(min_sector - hour_sector);
+        double result = angle > 180 ? 360 - angle : angle;
+        cout<<result;
+        return result;
+    }
+    static string reverseWords(string& s) {
+        int a = s.find_first_not_of(' '),b = 0;
+        if(a == string::npos) return "";
+        string result, temp;
+        while(a != string::npos){
+            s = s.substr(a, s.length() - a);
+            b = s.find_first_of(' ');
+            if(b == s.npos) b = s.length();
+            temp = s.substr(0,  b);
+            result = temp + " " + result;
+            s = s.substr(b,  s.length() - b);
+            a = s.find_first_not_of(' ');
+        }
+        result = result.substr(0, result.length()-1);
+        cout<<"S:"<<result<<'.';
+        return result;
+    }
 };
 
 #endif //LEETCODE_SOLUTION_H

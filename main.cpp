@@ -62,9 +62,12 @@ int main() {
 //    Solution::reverseBits(123);
 //    Interviews::code_n_care();
 //    Interviews::addBinaryStrings("1101", "111");
-    std::vector<std::vector<char>> board = {{'s', 'o', 's', 'o'},
-                                            {'s', 'o', 'o', 's'},
-                                            {'s', 's', 's', 's'}};
-    Interviews::wordCount(board, "sos");
+//    std::vector<std::vector<char>> board = {{'s', 'o', 's', 'o'},
+//                                            {'s', 'o', 'o', 's'},
+//                                            {'s', 's', 's', 's'}};
+//    Interviews::wordCount(board, "sos");
+//    Solution::angleClock(1,57);
+    string s = "  fdsa fdsa fdsaf fdsaf f ";
+    Solution::reverseWords(s);
     return 0;
 }
