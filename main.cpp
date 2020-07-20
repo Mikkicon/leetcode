@@ -34,6 +34,28 @@ void for_flatten(){
     twelve->prev = eleven;
     Solution::flatten(two);
 }
+Solution::ListNode* array_to_listnode(const vector<int>& vec){
+    if(!vec.size()) return nullptr;
+    Solution::ListNode* temp = new Solution::ListNode(vec[0]);
+    Solution::ListNode* head = new Solution::ListNode();
+    head = temp;
+    for(int i = 1; i <vec.size(); ++i){
+        auto a = new Solution::ListNode(vec[i]);
+        temp->next = a;
+        temp = temp->next;
+    }
+    delete temp;
+    return head;
+}
+
+void print_list(Solution::ListNode* head){
+    int out = 0;
+    while(head){
+        out = head->val;
+        cout<<out<<"->";
+        head = head->next;
+    }
+}
 
 int main() {
 //    string line;
@@ -44,7 +66,7 @@ int main() {
 //    vector<int> vector2 = {1,1,1,2,2,3,3,3};
 //    vector<int> vector3 = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
 //    auto tree = new Solution::TreeNode();
-//    vector<int> vector5 = {1,2,3,4};
+    vector<int> vector5 = {1,1};
 //    Solution::widthOfBinaryTree();
 //    vector<vector<int>> grid = {{0,1}};
 //    vector<vector<int>> grid0 = {{0,1,0,0},{1,1,1,0},{0,1,0,0},{1,1,0,0}};
@@ -67,7 +89,10 @@ int main() {
 //                                            {'s', 's', 's', 's'}};
 //    Interviews::wordCount(board, "sos");
 //    Solution::angleClock(1,57);
-    string s = "  fdsa fdsa fdsaf fdsaf f ";
-    Solution::reverseWords(s);
+//    string s = "  fdsa fdsa fdsaf fdsaf f ";
+//    Solution::reverseWords(s);
+    Solution::ListNode* head = array_to_listnode(vector5);
+    auto result = Solution::removeElements(head, 1);
+    print_list(result);
     return 0;
 }

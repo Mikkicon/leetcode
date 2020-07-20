@@ -33,6 +33,14 @@ public:
         Node():val(0),prev(nullptr), next(nullptr),child(nullptr){};
         Node(int val):val(val),prev(nullptr), next(nullptr),child(nullptr){};
     };
+    struct ListNode {
+        int val;
+        ListNode *next;
+        ListNode() : val(0), next(nullptr) {}
+        ListNode(int x) : val(x), next(nullptr) {}
+        ListNode(int x, ListNode *next) : val(x), next(next) {}
+    };
+
     static int removeDuplicates(vector<int>& nums) {
         auto it = nums.begin();
         vector<int>::iterator aux;
@@ -407,6 +415,30 @@ public:
         result = result.substr(0, result.length()-1);
         cout<<"S:"<<result<<'.';
         return result;
+    }
+    static ListNode* removeElements(ListNode* head, int val) {
+        if(!head) return head;
+        ListNode* current = new ListNode();
+        ListNode* previous = new ListNode();
+//        current = head;
+        while(head && head->val == val){
+            head = head->next;
+        }
+        current = head;
+        while(current){
+            if(current->val == val){
+                if(previous->next)
+                    previous->next = current->next;
+                else
+                    head->next = current->next;
+                current = previous->next;
+            }else{
+                previous = current;
+                current = current->next;
+            }
+        }
+        delete current;
+        return head;
     }
 };
 
